@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>	
+	<parent>
+		<groupId>com.neptune.templates.microservice</groupId>
+		<artifactId>templates-microservice-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>template-server</artifactId>
+	
+  	<packaging>jar</packaging>
+  	
+  	<name>template-server</name>
+  	<description>Resource Template</description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>com.neptune.templates.microservice</groupId>
+			<artifactId>template-storage</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		
+		<!-- jax-rs interfaces to use on Resources -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+		</dependency>
+		
+		<!-- JUnit Lib -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		
+		<!-- Logger -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+			
+	</dependencies>
+	
+</project>

@@ -1,0 +1,16 @@
+syntax: glob
+
+.metadata/
+Servers/
+
+*/*/.settings/
+*/*/target/
+*/*/bin/
+*/*/.classpath
+*/*/.project
+
+*/.settings/
+*/target/
+*/bin/
+*/.classpath
+*/.project

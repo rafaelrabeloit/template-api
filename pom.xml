@@ -1,0 +1,126 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.neptune.templates.microservice</groupId>
+	<artifactId>templates-microservice-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>template-commons</module>
+        <module>template-server</module>
+        <module>template-client</module>
+        <module>template-storage</module>	
+    </modules>
+
+    <properties>
+	
+        <!--  encoding-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--java version -->
+        <java-version>1.7</java-version>
+		
+        <compiler-plugin-version>3.1</compiler-plugin-version>
+        <dependency-plugin-version>2.8</dependency-plugin-version>
+
+        <jax-rs-version>2.0.1</jax-rs-version>
+        <hibernate-jpa-version>1.0.0.Final</hibernate-jpa-version>
+        <hibernate-version>4.3.10.Final</hibernate-version>
+        <media-moxy-version>2.19</media-moxy-version>
+        <jersey-version>2.19</jersey-version>
+		
+        <junit-version>4.11</junit-version>
+        <log4j-version>2.3</log4j-version>
+		
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+		
+			<!-- jpa annotations to use on Domains -->
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+				<version>${hibernate-jpa-version}</version>
+			</dependency>
+            
+            
+			<!-- jax-rs interfaces to use on Resources -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>${jax-rs-version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+            
+			<!-- Hibernate  -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate-version}</version>
+				<scope>compile</scope>
+			</dependency>			
+			
+			
+			<!-- Media Moxy -->
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-moxy</artifactId>
+				<version>${media-moxy-version}</version>
+			</dependency>
+			
+            
+            <!-- Tests -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
+			
+			<!-- Logger -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${log4j-version}</version>
+			</dependency>
+			
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>				
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${dependency-plugin-version}</version>
+                </plugin>
+				
+                <!-- compiler plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler-plugin-version}</version>
+					<inherited>true</inherited>
+                    <configuration>
+                        <source>${java-version}</source>
+                        <target>${java-version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+				
+            </plugins>
+
+        </pluginManagement>
+    </build>
+</project>
