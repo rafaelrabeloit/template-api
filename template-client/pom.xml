@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  	<modelVersion>4.0.0</modelVersion>	
+  	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.neptune.templates.microservice</groupId>
-		<artifactId>templates-microservice-parent</artifactId>
+		<groupId>com.neptune.api.template</groupId>
+		<artifactId>api-template</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
@@ -10,15 +10,15 @@
 	
   	<packaging>jar</packaging>
   	
-  	<name>template-client</name>
-  	<description>Client Template</description>
+  	<name>Template Client</name>
+  	<description>API Client Template</description>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>com.neptune.templates.microservice</groupId>
+			<groupId>com.neptune.api.template</groupId>
 			<artifactId>template-commons</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 	
 	
@@ -28,6 +28,10 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
 	</dependencies>
 	
 </project>

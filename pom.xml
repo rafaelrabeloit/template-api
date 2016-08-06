@@ -1,126 +1,239 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.neptune.templates.microservice</groupId>
-	<artifactId>templates-microservice-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <modules>
-        <module>template-commons</module>
-        <module>template-server</module>
-        <module>template-client</module>
-        <module>template-storage</module>	
-    </modules>
+	<groupId>com.neptune.api.template</groupId>
+	<artifactId>api-template</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 
-    <properties>
-	
-        <!--  encoding-->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--java version -->
-        <java-version>1.7</java-version>
-		
-        <compiler-plugin-version>3.1</compiler-plugin-version>
-        <dependency-plugin-version>2.8</dependency-plugin-version>
+	<packaging>pom</packaging>
 
-        <jax-rs-version>2.0.1</jax-rs-version>
-        <hibernate-jpa-version>1.0.0.Final</hibernate-jpa-version>
-        <hibernate-version>4.3.10.Final</hibernate-version>
-        <media-moxy-version>2.19</media-moxy-version>
-        <jersey-version>2.19</jersey-version>
-		
-        <junit-version>4.11</junit-version>
-        <log4j-version>2.3</log4j-version>
-		
-    </properties>
+	<modules>
+		<module>template-commons</module>
+		<module>template-storage</module>
+		<module>template-server</module>
+		<module>template-client</module>
+	</modules>
+
+	<name>API Template</name>
+	<description>Used to build REST API using JAX-RS and several other optional tools. Uses Template Pattern.</description>
+	<url>http://pha.neptune.li/</url>
+	<inceptionYear>2014</inceptionYear>
+	<licenses>
+		<license>
+			<name>UNLICENSED</name>
+		</license>
+	</licenses>
+	<organization>
+		<name>Neptune</name>
+		<url>http://neptune.li</url>
+	</organization>
+
+	<issueManagement>
+		<system>Phabricator Maniphest</system>
+		<url>http://pha.neptune.li/maniphest/</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jen.neptune.li/job/APITemplate/</url>
+	</ciManagement>
+	<scm>
+		<connection>scm:hg:http://pha.neptune.li/diffusion/APITEMPLATE/api-template/</connection>
+		<url>http://pha.neptune.li/diffusion/APITEMPLATE/</url>
+	</scm>
+
+	<properties>
+
+		<!-- encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--java version -->
+		<java-version>1.8</java-version>
+
+		<!-- Build plugin versions -->
+		<compiler-plugin-version>3.5.1</compiler-plugin-version>
+		<dependency-plugin-version>2.10</dependency-plugin-version>
+
+		<!-- Report plugin versions -->
+		<project-info-plugin-version>2.9</project-info-plugin-version>
+		<jacoco-plugin-version>0.7.7.201606060606</jacoco-plugin-version>
+		<surefire-report-plugin-version>2.19.1</surefire-report-plugin-version>
+		<javadoc-plugin-version>2.10.4</javadoc-plugin-version>
+		<javancss-plugin-version>2.1</javancss-plugin-version>
+		<pmd-plugin-version>3.6</pmd-plugin-version>
+		<jxr-plugin-version>2.5</jxr-plugin-version>
+		<checkstyle-plugin-version>2.17</checkstyle-plugin-version>
+		<findbugs-plugin-version>3.0.4</findbugs-plugin-version>
+
+		<jax-rs-version>2.0.1</jax-rs-version>
+		<jpa-version>1.0.2</jpa-version>
+		<jaxb-version>2.1</jaxb-version>
+		<cdi-version>1.2</cdi-version>
+
+		<jersey-version>2.19</jersey-version>
+		<hibernate-version>4.3.10.Final</hibernate-version>
+	</properties>
 
 
-    <dependencyManagement>
-        <dependencies>
-		
+	<dependencyManagement>
+		<dependencies>
+
 			<!-- jpa annotations to use on Domains -->
 			<dependency>
-				<groupId>org.hibernate.javax.persistence</groupId>
-				<artifactId>hibernate-jpa-2.1-api</artifactId>
-				<version>${hibernate-jpa-version}</version>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>${jpa-version}</version>
 			</dependency>
-            
-            
+
 			<!-- jax-rs interfaces to use on Resources -->
 			<dependency>
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>javax.ws.rs-api</artifactId>
 				<version>${jax-rs-version}</version>
-				<scope>compile</scope>
 			</dependency>
 
-            
-			<!-- Hibernate  -->
+			<!-- jaxb for HATEOS support -->
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${jaxb-version}</version>
+			</dependency>
+
+			<!-- CDI support -->
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>${cdi-version}</version>
+			</dependency>
+
+			<!-- Hibernate, optional -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>${hibernate-version}</version>
-				<scope>compile</scope>
-			</dependency>			
-			
-			
-			<!-- Media Moxy -->
-			<dependency>
-				<groupId>org.glassfish.jersey.media</groupId>
-				<artifactId>jersey-media-moxy</artifactId>
-				<version>${media-moxy-version}</version>
+				<scope>provided</scope>
 			</dependency>
-			
-            
-            <!-- Tests -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit-version}</version>
-                <scope>test</scope>
-            </dependency>
-			
-			<!-- Logger -->
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-api</artifactId>
-				<version>${log4j-version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${log4j-version}</version>
-			</dependency>
-			
-        </dependencies>
-    </dependencyManagement>
 
+		</dependencies>
+	</dependencyManagement>
 
-    <build>
-        <pluginManagement>
-            <plugins>				
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>${dependency-plugin-version}</version>
-                </plugin>
-				
-                <!-- compiler plugin -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${compiler-plugin-version}</version>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${project-info-plugin-version}</version>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${surefire-report-plugin-version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${javadoc-plugin-version}</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<id>default</id>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+					<reportSet>
+						<id>aggregate</id>
+						<reports>
+							<report>aggregate</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${pmd-plugin-version}</version>
+				<configuration>
+					<minimumTokens>100</minimumTokens>
+					<linkXref>true</linkXref>
+					<excludes>
+						<exclude>**/*Bean.java</exclude>
+						<exclude>**/generated/*.java</exclude>
+					</excludes>
+					<excludeRoots>
+						<excludeRoot>target/generated-sources/stubs</excludeRoot>
+					</excludeRoots>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>${jxr-plugin-version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle-plugin-version}</version>
+				<configuration>
+					<linkXref>true</linkXref>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${findbugs-plugin-version}</version>
+				<configuration>
+					<linkXref>true</linkXref>
+					<xmlOutput>true</xmlOutput>
+					<!-- Optional directory to put findbugs xdoc xml report -->
+					<xmlOutputDirectory>target/site</xmlOutputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${dependency-plugin-version}</version>
+				</plugin>
+
+				<!-- compiler plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-plugin-version}</version>
 					<inherited>true</inherited>
-                    <configuration>
-                        <source>${java-version}</source>
-                        <target>${java-version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
-                </plugin>
-				
-            </plugins>
+					<configuration>
+						<source>${java-version}</source>
+						<target>${java-version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
 
-        </pluginManagement>
-    </build>
+			</plugins>
+
+		</pluginManagement>
+	</build>
 </project>

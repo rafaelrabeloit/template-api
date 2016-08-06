@@ -1,43 +1,43 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  	<modelVersion>4.0.0</modelVersion>	
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.neptune.templates.microservice</groupId>
-		<artifactId>templates-microservice-parent</artifactId>
+		<groupId>com.neptune.api.template</groupId>
+		<artifactId>api-template</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>template-commons</artifactId>
-	
-  	<packaging>jar</packaging>
-  	
-  	<name>template-commons</name>
-  	<description>Domain Template and DAO Interface</description>
+
+	<packaging>jar</packaging>
+
+	<name>Template Commons</name>
+	<description>Domain Template and DAO Interfaces</description>
 
 	<dependencies>
 
-		<!-- Hibernate  -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
 			<scope>compile</scope>
-        </dependency>
-		
-		
+		</dependency>
+
+
 		<!-- jax-rs annotations to link injections -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<scope>compile</scope>
 		</dependency>
-		
-		
+
+
 		<!-- JSON support for Declarative link -->
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-			<scope>compile</scope>
-        </dependency>
-        
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		</dependency>
+
 	</dependencies>
-	
+
 </project>
