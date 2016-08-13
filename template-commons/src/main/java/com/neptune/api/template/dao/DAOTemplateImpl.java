@@ -20,15 +20,15 @@ public abstract class DAOTemplateImpl<T extends DomainTemplate>
     private Type genType;
     private ParameterizedListType param;
 
-    private List<Filter> filters = new LinkedList<>();
+    private List<Filtering> filters = new LinkedList<>();
 
-    public List<Filter> getFilters() {
+    public List<Filtering> getFilters() {
         return this.filters;
     }
 
-    private List<Order> orders = new LinkedList<>();
+    private List<Ordering> orders = new LinkedList<>();
 
-    public List<Order> getOrders() {
+    public List<Ordering> getOrders() {
         return this.orders;
     }
 

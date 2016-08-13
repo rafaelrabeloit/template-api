@@ -1,6 +1,6 @@
 package com.neptune.api.template.dao;
 
-public class Filter {
+public class Filtering {
     public static enum Operation {
         EQUAL, NOT_EQUAL, SEARCH
     }
@@ -9,7 +9,7 @@ public class Filter {
     private String property;
     private Object value;
 
-    public Filter(Operation operation, String property, Object value) {
+    public Filtering(Operation operation, String property, Object value) {
         super();
         this.operation = operation;
         this.property = property;

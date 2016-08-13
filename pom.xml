@@ -65,12 +65,11 @@
 		<findbugs-plugin-version>3.0.4</findbugs-plugin-version>
 
 		<jax-rs-version>2.0.1</jax-rs-version>
-		<jpa-version>1.0.2</jpa-version>
+		<jpa-version>1.0.0.Final</jpa-version>
 		<jaxb-version>2.1</jaxb-version>
 		<cdi-version>1.2</cdi-version>
 
-		<jersey-version>2.19</jersey-version>
-		<hibernate-version>4.3.10.Final</hibernate-version>
+		<hibernate-version>5.2.2.Final</hibernate-version>
 	</properties>
 
 
@@ -79,9 +78,10 @@
 
 			<!-- jpa annotations to use on Domains -->
 			<dependency>
-				<groupId>javax.persistence</groupId>
-				<artifactId>persistence-api</artifactId>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
 				<version>${jpa-version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- jax-rs interfaces to use on Resources -->
@@ -89,6 +89,7 @@
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>javax.ws.rs-api</artifactId>
 				<version>${jax-rs-version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- jaxb for HATEOS support -->
@@ -96,6 +97,7 @@
 				<groupId>javax.xml.bind</groupId>
 				<artifactId>jaxb-api</artifactId>
 				<version>${jaxb-version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- CDI support -->
@@ -103,13 +105,6 @@
 				<groupId>javax.enterprise</groupId>
 				<artifactId>cdi-api</artifactId>
 				<version>${cdi-version}</version>
-			</dependency>
-
-			<!-- Hibernate, optional -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate-version}</version>
 				<scope>provided</scope>
 			</dependency>
 

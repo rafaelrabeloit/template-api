@@ -128,9 +128,4 @@ public abstract class ClientTemplateREST<T extends DomainTemplate>
         return entity;
     }
 
-    @Override
-    public T modify(T entity) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

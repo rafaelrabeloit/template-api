@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 
 	<name>Template Storage</name>
-	<description>Template for Storage options. Uses Hibernate, for now.</description>
+	<description>Template for Storage options. Uses JPA.</description>
 
 	<dependencies>
 
@@ -34,14 +34,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-		</dependency>
-
-		<!-- Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
 		</dependency>
 
 	</dependencies>

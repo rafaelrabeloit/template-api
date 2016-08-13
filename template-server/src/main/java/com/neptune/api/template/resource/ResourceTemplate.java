@@ -43,7 +43,7 @@ abstract public class ResourceTemplate<E extends DomainTemplate> {
     }
 
     @SuppressWarnings("unchecked")
-    public final Class<E> getDomainClass() {
+    public Class<E> getDomainClass() {
         return (Class<E>) this.genType;
     }
 
@@ -136,23 +136,4 @@ abstract public class ResourceTemplate<E extends DomainTemplate> {
         return Response.status(Status.OK).entity(entity).build();
     }
 
-    // http://stackoverflow.com/questions/17897171/how-to-have-a-patch-annotation-for-jax-rs
-    // http://goobbe.com/questions/8146851/using-patch-with-jersey-client-api-for-unit-testing
-    @POST
-    @Path("/{id : \\d+}")
-    public Response patch(@PathParam("id") String id, E entity) {
-
-        try {
-            // TODO: perform id check
-            entity.setResourceId(id);
-            entity = this.getService().modify(entity);
-
-            return Response.status(Status.OK).entity(entity).build();
-        } catch (ValidationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-
-    }
 }

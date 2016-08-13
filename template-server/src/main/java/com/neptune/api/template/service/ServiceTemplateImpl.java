@@ -40,7 +40,4 @@ public abstract class ServiceTemplateImpl<T extends DomainTemplate>
         return this.getDAO().delete(entity);
     }
 
-    public T modify(T entity) {
-        return this.getDAO().modify(entity);
-    }
 }

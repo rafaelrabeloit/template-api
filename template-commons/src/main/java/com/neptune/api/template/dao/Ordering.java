@@ -1,6 +1,6 @@
 package com.neptune.api.template.dao;
 
-public class Order {
+public class Ordering {
     public static enum Direction {
         DESC, ASC
     }
@@ -8,7 +8,7 @@ public class Order {
     private Direction direction;
     private String field;
 
-    public Order(Direction direction, String field) {
+    public Ordering(Direction direction, String field) {
         super();
         this.setDirection(direction);
         this.setField(field);

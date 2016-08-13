@@ -1,4 +1,4 @@
-package com.neptune.api.template.dao;
+package com.neptune.api.template.storage;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -13,5 +13,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Qualifier
 @Retention(RUNTIME)
 @Target({ METHOD, FIELD, PARAMETER, TYPE })
-public @interface HibernateDAO {
+public @interface JPAStorage {
 }
