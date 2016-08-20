@@ -3,6 +3,7 @@ package com.neptune.api.template.resource;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,7 +19,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.xml.bind.ValidationException;
 
 import com.neptune.api.template.domain.DomainTemplate;
 import com.neptune.api.template.service.ServiceTemplate;
@@ -76,20 +76,17 @@ abstract public class ResourceTemplate<E extends DomainTemplate> {
     }
 
     @GET
-    @Path("/{id : \\d+}")
+    @Path("/{id : " + ResourceRegex.UUID + "}")
     public Response get(@PathParam("id") String id) {
 
         E entity = null;
 
         try {
             entity = this.getDomainClass().newInstance();
-            entity.setResourceId(id);
+            entity.setId(UUID.fromString(id));
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-        } catch (ValidationException e) {
-            e.printStackTrace();
-            return Response.status(Status.BAD_REQUEST).build();
         }
 
         entity = this.getService().retrieve(entity);
@@ -98,37 +95,28 @@ abstract public class ResourceTemplate<E extends DomainTemplate> {
     }
 
     @PUT
-    @Path("/{id : \\d+}")
+    @Path("/{id : " + ResourceRegex.UUID + "}")
     public Response put(@PathParam("id") String id, E entity) {
 
-        try {
-            // TODO: perform id check
-            entity.setResourceId(id);
-            entity = this.getService().update(entity);
+        // TODO: perform id check
+        entity.setId(UUID.fromString(id));
+        entity = this.getService().update(entity);
 
-            return Response.status(Status.OK).entity(entity).build();
-        } catch (ValidationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return Response.status(Status.BAD_REQUEST).build();
-        }
+        return Response.status(Status.OK).entity(entity).build();
 
     }
 
     @DELETE
-    @Path("/{id : \\d+}")
+    @Path("/{id : " + ResourceRegex.UUID + "}")
     public Response delete(@PathParam("id") String id) {
         E entity = null;
 
         try {
             entity = this.getDomainClass().newInstance();
-            entity.setResourceId(id);
+            entity.setId(UUID.fromString(id));
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-        } catch (ValidationException e) {
-            e.printStackTrace();
-            return Response.status(Status.BAD_REQUEST).build();
         }
 
         entity = this.getService().delete(entity);
