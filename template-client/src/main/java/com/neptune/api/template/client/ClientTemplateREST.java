@@ -77,7 +77,7 @@ public abstract class ClientTemplateREST<T extends DomainTemplate>
     @Override
     public T retrieve(T entity) {
         WebTarget targetRequest = templateTarget.resolveTemplate("id",
-                entity.getResourceId());
+                entity.getId());
 
         entity = targetRequest.request(MediaType.APPLICATION_JSON_TYPE)
                 .get(this.getPersistentClass());
@@ -105,7 +105,7 @@ public abstract class ClientTemplateREST<T extends DomainTemplate>
     @Override
     public T delete(T entity) {
         WebTarget targetRequest = templateTarget.resolveTemplate("id",
-                entity.getResourceId());
+                entity.getId());
 
         entity = targetRequest.request(MediaType.APPLICATION_JSON_TYPE)
                 .delete(this.getPersistentClass());
@@ -119,7 +119,7 @@ public abstract class ClientTemplateREST<T extends DomainTemplate>
     @Override
     public T update(T entity) {
         WebTarget targetRequest = templateTarget.resolveTemplate("id",
-                entity.getResourceId());
+                entity.getId());
 
         entity = targetRequest.request(MediaType.APPLICATION_JSON_TYPE).put(
                 Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE),

@@ -4,6 +4,13 @@ import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * Domain Template class that MUST be implemented to ensure type, and to be used
  * in generics :)
@@ -11,38 +18,55 @@ import java.util.UUID;
  * @author Rafael Rabelo
  *
  */
-public abstract class DomainTemplate {
+@MappedSuperclass
+public abstract class DomainTemplate implements java.io.Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8164385543051858159L;
+
+    private UUID id;
+    private Date createdOn;
 
     /**
      * 
      */
     public DomainTemplate() {
-
+        this.setId(UUID.randomUUID());
         this.setCreatedOn(new Date());
     }
 
-    /**
-     * Every model MUST have an Id
-     * @return Integer Id
-     */
-    public abstract UUID getId();
-    
-    /**
-     * Because this id is probably a ORM property, it also must has a setter
-     * @param id
-     * @return
-     */
-    public abstract void setId(UUID id);
-;
-    public abstract Date getCreatedOn();
+    @Id
+    @Column(columnDefinition = "BINARY(16)", unique = true, nullable = false, updatable = false)
+    public UUID getId() {
+        return this.id;
+    }
 
-    public abstract void setCreatedOn(Date createdOn);
-    
-    protected abstract void onCreate();
-    
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_on", nullable = false, updatable = false)
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdOn = new Date();
+    }
+
     /**
      * Copy from another object's properties
-     * @param t target object to copy from
+     * 
+     * @param t
+     *            target object to copy from
      * @throws IllegalArgumentException
      */
     public void copy(Object t) throws IllegalArgumentException {
@@ -55,5 +79,30 @@ public abstract class DomainTemplate {
                 }
             }
         }
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DomainTemplate other = (DomainTemplate) obj;
+        if (getId() == null) {
+            if (other.getId() != null)
+                return false;
+        } else if (!getId().equals(other.getId()))
+            return false;
+        return true;
     }
 }
