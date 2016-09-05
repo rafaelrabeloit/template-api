@@ -1,4 +1,4 @@
-package com.neptune.api.template.storage;
+package com.neptune.api.template.storage.memory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

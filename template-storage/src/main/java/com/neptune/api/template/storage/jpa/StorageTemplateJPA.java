@@ -1,7 +1,8 @@
-package com.neptune.api.template.storage;
+package com.neptune.api.template.storage.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -74,7 +75,9 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
      */
     @Override
     public T retrieve(T entity) {
-        return getEntityManager().find(getPersistentClass(), entity.getId());
+        T e = getEntityManager().find(getPersistentClass(), entity.getId());
+//        getEntityManager().refresh(entity);
+        return e;
     }
 
     /**
@@ -84,12 +87,13 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
     public T create(T entity) {
         try {
             getEntityManager().getTransaction().begin();
+            if (entity.getId() == null) {
+                entity.setId(UUID.randomUUID());
+            }
             getEntityManager().persist(entity);
             getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             getEntityManager().getTransaction().rollback();
-        } finally {
-            getEntityManager().close();
         }
         return entity;
     }
@@ -101,12 +105,12 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
     public T delete(T entity) {
         try {
             getEntityManager().getTransaction().begin();
+            entity = getEntityManager().find(getPersistentClass(),
+                    entity.getId());
             getEntityManager().remove(entity);
             getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             getEntityManager().getTransaction().rollback();
-        } finally {
-            getEntityManager().close();
         }
         return entity;
     }
@@ -122,8 +126,6 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
             getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             getEntityManager().getTransaction().rollback();
-        } finally {
-            getEntityManager().close();
         }
         return entity;
     }

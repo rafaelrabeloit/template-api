@@ -90,8 +90,11 @@ abstract public class ResourceTemplate<E extends DomainTemplate> {
         }
 
         entity = this.getService().retrieve(entity);
-
-        return Response.status(Status.OK).entity(entity).build();
+        if (entity != null) {
+            return Response.status(Status.OK).entity(entity).build();
+        } else {
+            return Response.status(Status.NOT_FOUND).build();
+        }
     }
 
     @PUT

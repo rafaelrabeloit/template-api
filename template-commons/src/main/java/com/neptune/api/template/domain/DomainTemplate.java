@@ -38,7 +38,7 @@ public abstract class DomainTemplate implements java.io.Serializable {
     }
 
     @Id
-    @Column(columnDefinition = "BINARY(16)", unique = true, nullable = false, updatable = false)
+    @Column(columnDefinition = "binary(16)", unique = true, nullable = false, updatable = false)
     public UUID getId() {
         return this.id;
     }
