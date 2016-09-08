@@ -17,7 +17,6 @@ public class PersistenceContextProducer {
     EntityManager manager = null;
 
     @Produces
-    @PersistenceContext
     public EntityManager newEntityManager(InjectionPoint ip) {
         // If there is a manager to this request, so there is no need to
         // generate a new one

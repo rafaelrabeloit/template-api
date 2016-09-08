@@ -20,7 +20,6 @@ public class PersistenceUnitProducer {
     static Map<String, EntityManagerFactory> units = new HashMap<>();
 
     @Produces
-    @PersistenceUnit(unitName = "")
     public EntityManagerFactory createFactory(InjectionPoint ip) {
         EntityManagerFactory emf;
 
