@@ -1,5 +1,8 @@
 package com.neptune.api.template.storage.jpa;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -14,16 +17,13 @@ public class PersistenceContextProducer {
     @Inject
     PersistenceUnitProducer producer;
 
-    EntityManager manager = null;
+    /**
+     * This map holds all managers for this request.
+     */
+    Map<String, EntityManager> managers = new HashMap<>();
 
     @Produces
     public EntityManager newEntityManager(InjectionPoint ip) {
-        // If there is a manager to this request, so there is no need to
-        // generate a new one
-        if (manager != null) {
-            return manager;
-        }
-
         PersistenceContext ann = null;
 
         if (ip != null) {
@@ -46,14 +46,26 @@ public class PersistenceContextProducer {
             name = "";
         }
 
-        return producer.getEntityManagerFactory(unitName, name)
-                .createEntityManager();
+        // If there is a manager to this request, so there is no need to
+        // generate a new one
+        if (managers.containsKey(name)) {
+            return managers.get(name);
+        } else {
+            EntityManager manager = producer
+                    .getEntityManagerFactory(unitName, name)
+                    .createEntityManager();
+            managers.put(name, manager);
+
+            return manager;
+        }
     }
 
     @PreDestroy
     public void dispose() {
-        if (manager != null && manager.isOpen()) {
-            manager.close();
+        for (EntityManager manager : managers.values()) {
+            if (manager.isOpen()) {
+                manager.close();
+            }
         }
     }
 }

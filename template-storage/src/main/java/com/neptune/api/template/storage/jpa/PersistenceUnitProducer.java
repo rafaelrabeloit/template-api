@@ -9,6 +9,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Singleton;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 
 @Singleton
@@ -17,7 +18,7 @@ public class PersistenceUnitProducer {
     /**
      * This map holds all persistence units, if there is more than one.
      */
-    static Map<String, EntityManagerFactory> units = new HashMap<>();
+    Map<String, EntityManagerFactory> units = new HashMap<>();
 
     @Produces
     public EntityManagerFactory createFactory(InjectionPoint ip) {
@@ -55,7 +56,18 @@ public class PersistenceUnitProducer {
         if (units.containsKey(name)) {
             emf = units.get(name);
         } else {
-            emf = Persistence.createEntityManagerFactory(unitName);
+            // try to load test version of persistence unit
+            try {
+                emf = Persistence
+                        .createEntityManagerFactory(unitName + "-test");
+            } catch (PersistenceException e) {
+                emf = null;
+            }
+
+            // if test version cannot be found, use the regular version
+            if (emf == null) {
+                emf = Persistence.createEntityManagerFactory(unitName);
+            }
             units.put(name, emf);
         }
         return emf;
@@ -63,7 +75,7 @@ public class PersistenceUnitProducer {
 
     @PreDestroy
     public void dispose() {
-        for(EntityManagerFactory e: units.values()) {
+        for (EntityManagerFactory e : units.values()) {
             e.close();
         }
     }
