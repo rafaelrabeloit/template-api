@@ -5,38 +5,38 @@ public class Filtering {
         EQUAL, NOT_EQUAL, SEARCH
     }
 
-    private Operation operation;
-    private String property;
-    private Object value;
+    private Operation mOperation;
+    private String mProperty;
+    private Object mValue;
 
     public Filtering(Operation operation, String property, Object value) {
         super();
-        this.operation = operation;
-        this.property = property;
-        this.value = value;
+        this.mOperation = operation;
+        this.mProperty = property;
+        this.mValue = value;
     }
 
-    public Operation getOperation() {
-        return operation;
+    public final Operation getOperation() {
+        return mOperation;
     }
 
-    public void setOperation(Operation operation) {
-        this.operation = operation;
+    public final void setOperation(Operation operation) {
+        this.mOperation = operation;
     }
 
-    public String getProperty() {
-        return property;
+    public final String getProperty() {
+        return mProperty;
     }
 
-    public void setProperty(String property) {
-        this.property = property;
+    public final void setProperty(String property) {
+        this.mProperty = property;
     }
 
-    public Object getValue() {
-        return value;
+    public final Object getValue() {
+        return mValue;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public final void setValue(Object value) {
+        this.mValue = value;
     }
 }

@@ -5,8 +5,8 @@ public class Ordering {
         DESC, ASC
     }
 
-    private Direction direction;
-    private String field;
+    private Direction mDirection;
+    private String mField;
 
     public Ordering(Direction direction, String field) {
         super();
@@ -14,20 +14,20 @@ public class Ordering {
         this.setField(field);
     }
 
-    public Direction getDirection() {
-        return direction;
+    public final Direction getDirection() {
+        return mDirection;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public final void setDirection(Direction direction) {
+        this.mDirection = direction;
     }
 
-    public String getField() {
-        return field;
+    public final String getField() {
+        return mField;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public final void setField(String field) {
+        this.mField = field;
     }
 
 }

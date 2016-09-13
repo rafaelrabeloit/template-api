@@ -24,7 +24,7 @@ public interface DAOTemplate<T extends DomainTemplate> {
 
     T delete(T entity);
 
-    public List<Filtering> getFilters();
+    List<Filtering> getFilters();
     
-    public List<Ordering> getOrders();
+    List<Ordering> getOrders();
 }

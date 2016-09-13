@@ -1,7 +1,8 @@
 package com.neptune.api.template.adapter;
 
 //TODO: change this when https://java.net/jira/browse/JAX_RS_SPEC-475 is fixed (follow: http://www.tagwith.com/question_1061564_jax-rs-hateoas-using-jersey-unwanted-link-properties-in-json)
-// This is the better solution because you don't have to use a @Provider, which would increase the dependencies
+// This is the better solution because you don't have to use a @Provider,
+// which would increase the dependencies
 
 import java.net.URI;
 
@@ -9,7 +10,7 @@ import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class LinkAdapter extends XmlAdapter<LinkJaxb, Link> {
+public final class LinkAdapter extends XmlAdapter<LinkJaxb, Link> {
 
     public LinkAdapter() {
     }
@@ -23,10 +24,10 @@ public class LinkAdapter extends XmlAdapter<LinkJaxb, Link> {
     }
 }
 
-class LinkJaxb {
+final class LinkJaxb {
 
-    private URI uri;
-    private String rel;
+    private URI mUri;
+    private String mRel;
 
     public LinkJaxb() {
         this(null, null);
@@ -37,22 +38,22 @@ class LinkJaxb {
     }
 
     public LinkJaxb(URI uri, String rel) {
-        this.uri = uri;
-        this.rel = rel;
+        this.mUri = uri;
+        this.mRel = rel;
     }
 
     @XmlAttribute(name = "href")
     public URI getUri() {
-        return uri;
+        return mUri;
     }
 
     @XmlAttribute(name = "rel")
     public String getRel() {
-        return rel;
+        return mRel;
     }
 
     public void setUri(URI uri) {
-        this.uri = uri;
+        this.mUri = uri;
     }
 
 }

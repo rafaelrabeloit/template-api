@@ -15,15 +15,15 @@ import com.neptune.api.template.domain.DomainTemplate;
  */
 public interface ServiceTemplate<T extends DomainTemplate> {
 
-    public DAOTemplate<T> getDAO();
+    DAOTemplate<T> getDAO();
 
-    public GenericEntity<List<T>> page(int n, int start);
+    GenericEntity<List<T>> page(int n, int start);
 
-    public T create(T entity);
+    T create(T entity);
 
-    public T retrieve(T entity);
+    T retrieve(T entity);
 
-    public T update(T entity);
+    T update(T entity);
 
-    public T delete(T entity);
+    T delete(T entity);
 }

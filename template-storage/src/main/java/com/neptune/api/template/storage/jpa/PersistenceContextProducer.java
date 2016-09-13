@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @RequestScoped
-public class PersistenceContextProducer {
+public final class PersistenceContextProducer {
 
     @Inject
     PersistenceUnitProducer producer;
@@ -20,7 +20,7 @@ public class PersistenceContextProducer {
     /**
      * This map holds all managers for this request.
      */
-    Map<String, EntityManager> managers = new HashMap<>();
+    private Map<String, EntityManager> managers = new HashMap<>();
 
     @Produces
     public EntityManager newEntityManager(InjectionPoint ip) {

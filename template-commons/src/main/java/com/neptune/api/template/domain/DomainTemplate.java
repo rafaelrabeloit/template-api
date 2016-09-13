@@ -1,6 +1,5 @@
 package com.neptune.api.template.domain;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,15 +21,15 @@ import javax.persistence.TemporalType;
 public abstract class DomainTemplate implements java.io.Serializable {
 
     /**
-     * 
+     * Serial Version UID
      */
     private static final long serialVersionUID = -8164385543051858159L;
 
-    private UUID id;
-    private Date createdOn;
+    private UUID mId;
+    private Date mCreatedOn;
 
     /**
-     * 
+     * Basic Constructor
      */
     public DomainTemplate() {
         this.setId(UUID.randomUUID());
@@ -40,69 +39,58 @@ public abstract class DomainTemplate implements java.io.Serializable {
     @Id
     @Column(columnDefinition = "binary(16)", unique = true, nullable = false, updatable = false)
     public UUID getId() {
-        return this.id;
+        return this.mId;
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.mId = id;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_on", nullable = false, updatable = false)
     public Date getCreatedOn() {
-        return createdOn;
+        return (Date) mCreatedOn.clone();
     }
 
     public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+        this.mCreatedOn = (Date) createdOn.clone();
     }
 
     @PrePersist
     protected void onCreate() {
-        this.createdOn = new Date();
-    }
-
-    /**
-     * Copy from another object's properties
-     * 
-     * @param t
-     *            target object to copy from
-     * @throws IllegalArgumentException
-     */
-    public void copy(Object t) throws IllegalArgumentException {
-        if (this.getClass() == t.getClass()) {
-            for (Field field : t.getClass().getDeclaredFields()) {
-                field.setAccessible(true);
-                try {
-                    field.set(this, field.get(t));
-                } catch (IllegalAccessException e) {
-                }
-            }
-        }
+        this.mCreatedOn = new Date();
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result;
+        if (getId() != null) {
+            result += getId().hashCode();
+        }
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         DomainTemplate other = (DomainTemplate) obj;
         if (getId() == null) {
-            if (other.getId() != null)
+            if (other.getId() != null) {
                 return false;
-        } else if (!getId().equals(other.getId()))
+            }
+        } else if (!getId().equals(other.getId())) {
             return false;
+        }
         return true;
     }
 }

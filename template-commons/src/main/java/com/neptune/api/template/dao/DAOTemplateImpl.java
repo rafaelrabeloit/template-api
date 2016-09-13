@@ -8,7 +8,7 @@ import java.util.List;
 import com.neptune.api.template.domain.DomainTemplate;
 
 /**
- * 
+ * DAO Template basic methods.
  * @author Rafael Rabelo
  *
  * @param <T>
@@ -54,15 +54,15 @@ public abstract class DAOTemplateImpl<T extends DomainTemplate>
 
     static class ParameterizedListType implements ParameterizedType {
 
-        ParameterizedListType(Type type) {
-            this.type = type;
-        }
+        Type mType;
 
-        Type type;
+        ParameterizedListType(Type type) {
+            this.mType = type;
+        }
 
         @Override
         public Type[] getActualTypeArguments() {
-            return new Type[] { type };
+            return new Type[] { mType };
         }
 
         @Override

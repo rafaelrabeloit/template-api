@@ -13,12 +13,12 @@ import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 
 @Singleton
-public class PersistenceUnitProducer {
+public final class PersistenceUnitProducer {
 
     /**
      * This map holds all persistence units, if there is more than one.
      */
-    Map<String, EntityManagerFactory> units = new HashMap<>();
+    private Map<String, EntityManagerFactory> units = new HashMap<>();
 
     @Produces
     public EntityManagerFactory createFactory(InjectionPoint ip) {
@@ -51,8 +51,9 @@ public class PersistenceUnitProducer {
         return emf;
     }
 
-    EntityManagerFactory getEntityManagerFactory(String unitName, String name) {
+    protected EntityManagerFactory getEntityManagerFactory(String unitName, String name) {
         EntityManagerFactory emf;
+
         if (units.containsKey(name)) {
             emf = units.get(name);
         } else {

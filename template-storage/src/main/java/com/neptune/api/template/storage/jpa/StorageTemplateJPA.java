@@ -37,6 +37,10 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
         super();
     }
 
+    /**
+     * To be override by template implementation
+     * @return
+     */
     public abstract EntityManager getEntityManager();
 
     /**
@@ -76,7 +80,6 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
     @Override
     public T retrieve(T entity) {
         T e = getEntityManager().find(getPersistentClass(), entity.getId());
-//        getEntityManager().refresh(entity);
         return e;
     }
 
@@ -130,7 +133,14 @@ public abstract class StorageTemplateJPA<T extends DomainTemplate>
         return entity;
     }
 
-    public CriteriaQuery<T> composeCriteria(Root<T> from,
+    /**
+     * Compose a query
+     * @param from
+     * @param criteria
+     * @param builder
+     * @return
+     */
+    public final CriteriaQuery<T> composeCriteria(Root<T> from,
             CriteriaQuery<T> criteria, CriteriaBuilder builder) {
         CriteriaQuery<T> query = criteria.select(from);
 

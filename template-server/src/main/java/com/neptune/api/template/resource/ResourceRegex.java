@@ -9,6 +9,13 @@ package com.neptune.api.template.resource;
 public class ResourceRegex {
 
     /**
+     * Protect constructor
+     */
+    protected ResourceRegex() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * UUID regex
      */
     public static final String UUID = "[\\p{XDigit}]{8}"

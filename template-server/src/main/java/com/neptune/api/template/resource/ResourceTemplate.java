@@ -43,7 +43,7 @@ abstract public class ResourceTemplate<E extends DomainTemplate> {
     }
 
     @SuppressWarnings("unchecked")
-    public Class<E> getDomainClass() {
+    public final Class<E> getDomainClass() {
         return (Class<E>) this.genType;
     }
 
